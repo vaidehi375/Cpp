@@ -1,0 +1,215 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Node structure to store a club member
+struct Node {
+    string prn;    // student's PRN (we use string to keep it simple)
+    string name;   // student's name
+    Node* next;    // pointer to the next node
+
+    // constructor to create node quickly
+    Node(const string &p, const string &n) {
+        prn = p;
+        name = n;
+        next = nullptr;
+    }
+};
+
+class ClubList {
+private:
+    Node* head;   // pointer to the first node (president if present)
+
+public:
+    // Constructor: start with empty list
+    ClubList() {
+        head = nullptr;
+    }
+
+    // Function to add President (insert at front)
+    void addPresident(const string &prn, const string &name) {
+        Node* newNode = new Node(prn, name); // create new node
+        // Insert at front
+        newNode->next = head;
+        head = newNode;
+        cout << "\nPresident added: " << name << " (" << prn << ")\n";
+    }
+
+    // Function to add Secretary (insert at end)
+    void addSecretary(const string &prn, const string &name) {
+        Node* newNode = new Node(prn, name);
+        if (head == nullptr) {
+            // If list empty, secretary becomes the only node (and also president)
+            head = newNode;
+            cout << "\nSecretary added as the only member: " << name << " (" << prn << ")\n";
+            return;
+        }
+        // Traverse to end and append
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+        cout << "\nSecretary added at end: " << name << " (" << prn << ")\n";
+    }
+
+    // Function to add a member after a given PRN (insert in middle)
+    // It returns true if insertion successful, false if PRN not found.
+    bool addMemberAfter(const string &afterPRN, const string &prn, const string &name) {
+        if (head == nullptr) {
+            cout << "\nList is empty. Cannot insert after " << afterPRN << ".\n";
+            return false;
+        }
+        Node* temp = head;
+        // Find the node with PRN == afterPRN
+        while (temp != nullptr && temp->prn != afterPRN) {
+            temp = temp->next;
+        }
+        if (temp == nullptr) {
+            // PRN not found
+            cout << "\nPRN " << afterPRN << " not found. Cannot insert.\n";
+            return false;
+        }
+        // Insert new node after temp
+        Node* newNode = new Node(prn, name);
+        newNode->next = temp->next;
+        temp->next = newNode;
+        cout << "\nMember added: " << name << " (" << prn << ") after " << afterPRN << "\n";
+        return true;
+    }
+
+    // Function to compute total number of members
+    int countMembers() {
+        int count = 0;
+        Node* temp = head;
+        while (temp != nullptr) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
+    // Function to display all members (head -> ... -> tail)
+    void displayMembers() {
+        if (head == nullptr) {
+            cout << "\nClub list is empty.\n";
+            return;
+        }
+        cout << "\nPinnacle Club Members (head -> ... -> tail):\n";
+        Node* temp = head;
+        int position = 1;
+        while (temp != nullptr) {
+            // Indicate president and secretary positions when possible
+            cout << position << ". " << temp->name << " (" << temp->prn << ")";
+            if (position == 1) cout << "  <- President";
+            // To show secretary we must peek ahead; but simpler: print label at end after loop
+            cout << "\n";
+            temp = temp->next;
+            position++;
+        }
+        // Optionally mark secretary (last node)
+        cout << "\nTotal members: " << countMembers() << "\n";
+    }
+
+    // Helper: display list and mark president & secretary clearly
+    void displayWithRoles() {
+        if (head == nullptr) {
+            cout << "\nClub list is empty.\n";
+            return;
+        }
+        // Find last node to mark secretary
+        Node* temp = head;
+        Node* last = nullptr;
+        while (temp != nullptr) {
+            last = temp;
+            temp = temp->next;
+        }
+
+        cout << "\nPinnacle Club Members (with roles):\n";
+        temp = head;
+        int pos = 1;
+        while (temp != nullptr) {
+            cout << pos << ". " << temp->name << " (" << temp->prn << ")";
+            if (temp == head) cout << "  <- President";
+            if (temp == last) cout << "  <- Secretary";
+            cout << "\n";
+            temp = temp->next;
+            pos++;
+        }
+        cout << "\nTotal members: " << countMembers() << "\n";
+    }
+
+    // Destructor to free all nodes when object destroyed
+    ~ClubList() {
+        Node* cur = head;
+        while (cur != nullptr) {
+            Node* nxt = cur->next;
+            delete cur;
+            cur = nxt;
+        }
+    }
+};
+
+// Helper function to read a line (PRN or name)
+string readString(const string &prompt) {
+    string s;
+    cout << prompt;
+    // use std::ws to ignore newline left in buffer, then getline for full line
+    getline(cin >> ws, s);
+    return s;
+}
+
+int main() {
+    ClubList club;
+    int choice;
+
+    do {
+        cout << "\n==== Pinnacle Club Menu ====\n";
+        cout << "1. Add President (insert at front)\n";
+        cout << "2. Add Secretary (insert at end)\n";
+        cout << "3. Add Member after given PRN\n";
+        cout << "4. Count total members\n";
+        cout << "5. Display members (with roles)\n";
+        cout << "6. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                string prn = readString("Enter PRN of President: ");
+                string name = readString("Enter Name of President: ");
+                club.addPresident(prn, name);
+                break;
+            }
+            case 2: {
+                string prn = readString("Enter PRN of Secretary: ");
+                string name = readString("Enter Name of Secretary: ");
+                club.addSecretary(prn, name);
+                break;
+            }
+            case 3: {
+                string afterPRN = readString("Enter PRN after which to insert: ");
+                string prn = readString("Enter PRN of new member: ");
+                string name = readString("Enter Name of new member: ");
+                club.addMemberAfter(afterPRN, prn, name);
+                break;
+            }
+            case 4: {
+                int total = club.countMembers();
+                cout << "\nTotal number of members: " << total << "\n";
+                break;
+            }
+            case 5: {
+                club.displayWithRoles();
+                break;
+            }
+            case 6:
+                cout << "Exiting program...\n";
+                break;
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 6);
+
+    return 0;
+}
