@@ -1,213 +1,125 @@
-#include 
-
-using namespace std; 
-
-// Node for each seat 
-
-struct Seat { 
-
-int seat_no;bool booked; // true = booked, false = free 
-
-Seat* next; 
-
-Seat* prev; 
-
-Seat(int num) { 
-
-seat_no = num; 
-
-booked = false; // initially free 
-
-next = nullptr; 
-
-prev = nullptr; 
-
-} 
-
-}; 
-
-// Class for Theater 
-
-class Theater { 
-
-private: 
-
-Seat* row[10]; // array of head pointers (10 rows) 
-
-public: 
-
-Theater() { 
-
-// Initialize all 10 rows 
-
-for (int i = 0; i < 10; i++) { 
-
-row[i] = nullptr; 
-
-createRow(i); // create 7 seats in each row 
-
-} 
-
-// random booking 
-
-row[2]->booked = true; // Example bookings 
-
-row[5]->next->next->booked = true; 
-
-row[7]->next->booked = true; 
-
-} 
-
-// Create one row with 7 seats 
-
-void createRow(int r) { 
-
-Seat* head = nullptr; 
-
-Seat* temp = nullptr; 
-
-for (int i = 1; i <= 7; i++) { 
-
-Seat* newSeat = new Seat(i); 
-
-if (head == nullptr) { 
-
-head = newSeat; 
-
-temp = newSeat; 
-
-} else { 
-
-temp->next = newSeat; 
-
-newSeat->prev = temp; 
-
-temp = newSeat; 
-
-} 
-
-} 
-
-row[r] = head; // store head of this row 
-
-} 
-
-// Display all available (free) seats 
-
-void displayAvailable() { 
-
-cout << "\n===== Available Seats =====\n"; 
-
-for (int i = 0; i < 10; i++) { 
-
-cout << "Row " << i + 1 << ": "; 
-
-Seat* temp = row[i];while (temp != nullptr) { 
-
-if (!temp->booked) 
-
-cout << temp->seat_no << " "; 
-
-temp = temp->next; 
-
-} 
-
-cout << endl; 
-
-} 
-
-} 
-
-// Book a particular seat 
-
-void bookSeat(int r, int s) { 
-
-if (r < 1 || r > 10 || s < 1 || s > 7) { 
-
-cout << "Invalid row or seat number!\n"; 
-
-return; 
-
-} 
-
-Seat* temp = row[r - 1]; 
-
-for (int i = 1; i < s; i++) 
-
-temp = temp->next; 
-
-if (temp->booked) 
-
-cout << "Sorry! Seat already booked.\n"; 
-
-else { 
-
-temp->booked = true; 
-
-cout << "Seat " << s << " in Row " << r << " booked successfully!\n"; 
-
-} 
-
-} 
-
-}; 
-
-// Main Function 
-
-int main() { 
-
-Theater t; 
-
-int choice, row, seat; 
-
-do { 
-
-cout << "\n\n===== CINEMAX THEATER MENU =====\n"; 
-
-cout << "1. Show available seats\n"; 
-
-cout << "2. Book a seat\n"; 
-
-cout << "3. Exit\n"; 
-
-cout << "Enter choice: "; 
-
-cin >> choice; 
-
-switch (choice) { 
-
-case 1: 
-
-t.displayAvailable(); 
-
-break; 
-
-case 2: 
-
-cout << "Enter Row (1-10): "; 
-
-cin >> row; 
-
-cout << "Enter Seat (1-7): "; 
-
-cin >> seat; 
-
-t.bookSeat(row, seat); 
-
-break; 
-
-case 3:cout << "Thank you! Visit again.\n"; 
-
-break; 
-
-default: 
-
-cout << "Invalid choice!\n"; 
-
-} 
-
-} while (choice != 3); 
-
-return 0; 
-
+#include <iostream>
+using namespace std;
+
+// Node for each seat
+struct Seat {
+    int seat_no;
+    bool booked;         // true = booked, false = free
+    Seat* next;
+    Seat* prev;
+
+    Seat(int num) {
+        seat_no = num;
+        booked = false;  // initially free
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+// Class for Theater
+class Theater {
+private:
+    Seat* row[10];   // array of head pointers (10 rows)
+
+public:
+    Theater() {
+        // Initialize all 10 rows
+        for (int i = 0; i < 10; i++) {
+            row[i] = nullptr;
+            createRow(i);   // create 7 seats in each row
+        }
+        // random booking
+        row[2]->booked = true; // Example bookings
+        row[5]->next->next->booked = true;
+        row[7]->next->booked = true;
+    }
+
+    // Create one row with 7 seats
+    void createRow(int r) {
+        Seat* head = nullptr;
+        Seat* temp = nullptr;
+        for (int i = 1; i <= 7; i++) {
+            Seat* newSeat = new Seat(i);
+            if (head == nullptr) {
+                head = newSeat;
+                temp = newSeat;
+            } else {
+                temp->next = newSeat;
+                newSeat->prev = temp;
+                temp = newSeat;
+            }
+        }
+        row[r] = head; // store head of this row
+    }
+
+    // Display all available (free) seats
+    void displayAvailable() {
+        cout << "\n===== Available Seats =====\n";
+        for (int i = 0; i < 10; i++) {
+            cout << "Row " << i + 1 << ": ";
+            Seat* temp = row[i];
+            while (temp != nullptr) {
+                if (!temp->booked)
+                    cout << temp->seat_no << " ";
+                temp = temp->next;
+            }
+            cout << endl;
+        }
+    }
+
+    // Book a particular seat
+    void bookSeat(int r, int s) {
+        if (r < 1 || r > 10 || s < 1 || s > 7) {
+            cout << "Invalid row or seat number!\n";
+            return;
+        }
+
+        Seat* temp = row[r - 1];
+        for (int i = 1; i < s; i++)
+            temp = temp->next;
+
+        if (temp->booked)
+            cout << "Sorry! Seat already booked.\n";
+        else {
+            temp->booked = true;
+            cout << "Seat " << s << " in Row " << r << " booked successfully!\n";
+        }
+    }
+};
+
+// Main Function
+int main() {
+    Theater t;
+    int choice, row, seat;
+
+    do {
+        cout << "\n\n===== CINEMAX THEATER MENU =====\n";
+        cout << "1. Show available seats\n";
+        cout << "2. Book a seat\n";
+        cout << "3. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                t.displayAvailable();
+                break;
+            case 2:
+                cout << "Enter Row (1-10): ";
+                cin >> row;
+                cout << "Enter Seat (1-7): ";
+                cin >> seat;
+                t.bookSeat(row, seat);
+                break;
+            case 3:
+                cout << "Thank you! Visit again.\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 3);
+
+    return 0;
 }
+
