@@ -1,180 +1,144 @@
-#include 
 
-using namespace std; 
-
-#defne SIZE 10 // size of hash table 
-
-class HashTable { 
-
-long long keys[SIZE]; // array for storing telephone numbers (keys) 
-
-string names[SIZE]; // array for storing client names 
-
-public: 
-
-HashTable() { 
-
-for (int i = 0; i < SIZE; i++) {keys[i] = -1; // -1 means empty 
-
-names[i] = ""; 
-
-} 
-
-} 
-
-// Primary hash function 
-
-int hash1(long long key) { 
-
-return key % SIZE; 
-
-} 
-
-// Secondary hash function (for double hashing) 
-
-int hash2(long long key) { 
-
-return 7 - (key % 7); // 7 is a prime smaller than SIZE 
-
-} 
-
-// Insert client info using Double Hashing 
-
-void insert(long long key, string name) { 
-
-int index = hash1(key); 
-
-int step = hash2(key); 
-
-int i = 0; 
-
-int newIndex; 
-
-while (true) { 
-
-newIndex = (index + i * step) % SIZE; 
-
-// Empty slot found int i = 0; 
-
-int newIndex; 
-
-while (i < SIZE) { 
-
-newIndex = (index + i * step) % SIZE; 
-
-if (keys[newIndex] == key) { 
-
-cout << "Client found: " << names[newIndex] 
-
-<< " (Phone No: " << keys[newIndex] << ")\n"; 
-
-return; 
-
-} 
-
-// Stop if an empty slot found (key not present) 
-
-if (keys[newIndex] == -1) { 
-
-break; 
-
-} 
-
-i++; 
-
-} 
-
-cout << "Client not found!\n"; 
-
-} 
-
-// Display all records 
-
-void display() { 
-
-cout << "\n--- Hash Table ---\n"; 
-
-for (int i = 0; i < SIZE; i++) { 
-
-if (keys[i] != -1) 
-
-cout << i << " --> " << names[i] << " (" << keys[i] << ")\n"; 
-
-else 
-
-cout << i << " --> [empty]\n"; 
-
-} 
-
-} 
-
-}; 
-
-int main() { 
-
-HashTable ht; 
-
-int choice; 
-
-long long key; 
-
-string name; 
-
-do { 
-
-cout << "\n--- Telephone Book Menu ---\n"; 
-
-cout << "1. Insert client\n2. Search client\n3. Display hash table\n4. Exit\n"; 
-
-cout << "Enter your choice: "; 
-
-cin >> choice; 
-
-switch (choice) { 
-
-case 1: 
-
-cout << "Enter client name: "; 
-
-cin >> name; 
-
-cout << "Enter telephone number: "; 
-
-cin >> key; 
-
-ht.insert(key, name);break; 
-
-case 2: 
-
-cout << "Enter telephone number to search: "; 
-
-cin >> key; 
-
-ht.search(key); 
-
-break; 
-
-case 3: 
-
-ht.display(); 
-
-break; 
-
-case 4: 
-
-cout << "Exiting...\n"; 
-
-break; 
-
-default: 
-
-cout << "Invalid choice!\n"; 
-
-} 
-
-} while (choice != 4); 
-
-return 0; 
-
-} 
-
+#include <iostream>
+using namespace std;
+
+#define SIZE 10  // size of hash table
+
+class HashTable {
+    long long keys[SIZE];      // array for storing telephone numbers (keys)
+    string names[SIZE];        // array for storing client names
+
+public:
+    HashTable() {
+        for (int i = 0; i < SIZE; i++) {
+            keys[i] = -1;  // -1 means empty
+            names[i] = "";
+        }
+    }
+
+    // Primary hash function
+    int hash1(long long key) {
+        return key % SIZE;
+    }
+
+    // Secondary hash function (for double hashing)
+    int hash2(long long key) {
+        return 7 - (key % 7);  // 7 is a prime smaller than SIZE
+    }
+
+    // Insert client info using Double Hashing
+    void insert(long long key, string name) {
+        int index = hash1(key);
+        int step = hash2(key);
+
+        int i = 0;
+        int newIndex;
+
+        while (true) {
+            newIndex = (index + i * step) % SIZE;
+
+            // Empty slot found → insert record
+            if (keys[newIndex] == -1) {
+                keys[newIndex] = key;
+                names[newIndex] = name;
+                cout << "Record inserted successfully at index " << newIndex << "\n";
+                return;
+            }
+
+            // If key already exists → update record
+            if (keys[newIndex] == key) {
+                names[newIndex] = name;
+                cout << "Record updated at index " << newIndex << "\n";
+                return;
+            }
+
+            i++;
+            if (i == SIZE) {
+                cout << "Hash table full! Cannot insert new record.\n";
+                return;
+            }
+        }
+    }
+
+    // Search client info using double hashing
+    void search(long long key) {
+        int index = hash1(key);
+        int step = hash2(key);
+
+        int i = 0;
+        int newIndex;
+
+        while (i < SIZE) {
+            newIndex = (index + i * step) % SIZE;
+
+            if (keys[newIndex] == key) {
+                cout << "Client found: " << names[newIndex] 
+                     << " (Phone No: " << keys[newIndex] << ")\n";
+                return;
+            }
+
+            // Stop if an empty slot found (key not present)
+            if (keys[newIndex] == -1) {
+                break;
+            }
+
+            i++;
+        }
+
+        cout << "Client not found!\n";
+    }
+
+    // Display all records
+    void display() {
+        cout << "\n--- Hash Table ---\n";
+        for (int i = 0; i < SIZE; i++) {
+            if (keys[i] != -1)
+                cout << i << " --> " << names[i] << " (" << keys[i] << ")\n";
+            else
+                cout << i << " --> [empty]\n";
+        }
+    }
+};
+
+int main() {
+    HashTable ht;
+    int choice;
+    long long key;
+    string name;
+
+    do {
+        cout << "\n--- Telephone Book Menu ---\n";
+        cout << "1. Insert client\n2. Search client\n3. Display hash table\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter client name: ";
+            cin >> name;
+            cout << "Enter telephone number: ";
+            cin >> key;
+            ht.insert(key, name);
+            break;
+
+        case 2:
+            cout << "Enter telephone number to search: ";
+            cin >> key;
+            ht.search(key);
+            break;
+
+        case 3:
+            ht.display();
+            break;
+
+        case 4:
+            cout << "Exiting...\n";
+            break;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
