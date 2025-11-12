@@ -1,0 +1,129 @@
+#include <iostream>
+using namespace std;
+
+#define SIZE 10  // Size of hash table
+
+class HashTable {
+    long long keys[SIZE];  // Telephone numbers (keys)
+    string names[SIZE];    // Client names
+
+public:
+    HashTable() {
+        for (int i = 0; i < SIZE; i++) {
+            keys[i] = -1;
+            names[i] = "";
+        }
+    }
+
+    // Hash function
+    int hash(long long key) {
+        return key % SIZE;
+    }
+
+    // Insert using Quadratic Probing
+    void insert(long long key, string name) {
+        int index = hash(key);
+        int i = 0;
+        int newIndex;
+
+        while (i < SIZE) {
+            newIndex = (index + i * i) % SIZE;
+
+            // Insert in empty slot
+            if (keys[newIndex] == -1) {
+                keys[newIndex] = key;
+                names[newIndex] = name;
+                cout << "Inserted at index " << newIndex << endl;
+                return;
+            }
+
+            // Update existing key
+            if (keys[newIndex] == key) {
+                names[newIndex] = name;
+                cout << "Updated record at index " << newIndex << endl;
+                return;
+            }
+
+            i++;
+        }
+        cout << "Hash Table is full! Cannot insert.\n";
+    }
+
+    // Search client
+    void search(long long key) {
+        int index = hash(key);
+        int i = 0, newIndex;
+
+        while (i < SIZE) {
+            newIndex = (index + i * i) % SIZE;
+
+            if (keys[newIndex] == key) {
+                cout << "Found: " << names[newIndex]
+                     << " (Phone: " << keys[newIndex] << ")\n";
+                return;
+            }
+
+            // Stop if empty slot found (key not present)
+            if (keys[newIndex] == -1)
+                break;
+
+            i++;
+        }
+        cout << "Client not found!\n";
+    }
+
+    // Display all records
+    void display() {
+        cout << "\n--- Hash Table (Quadratic Probing) ---\n";
+        for (int i = 0; i < SIZE; i++) {
+            if (keys[i] != -1)
+                cout << i << " --> " << names[i] << " (" << keys[i] << ")\n";
+            else
+                cout << i << " --> [empty]\n";
+        }
+    }
+};
+
+int main() {
+    HashTable ht;
+    int choice;
+    long long key;
+    string name;
+
+    do {
+        cout << "\n--- Telephone Book Menu ---\n";
+        cout << "1. Insert client\n2. Search client\n3. Display hash table\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter client name: ";
+            cin >> name;
+            cout << "Enter telephone number: ";
+            cin >> key;
+            ht.insert(key, name);
+            break;
+
+        case 2:
+            cout << "Enter telephone number to search: ";
+            cin >> key;
+            ht.search(key);
+            break;
+
+        case 3:
+            ht.display();
+            break;
+
+        case 4:
+            cout << "Exiting...\n";
+            break;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
+
