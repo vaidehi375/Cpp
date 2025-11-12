@@ -1,0 +1,83 @@
+#include 
+
+using namespace std; 
+
+// Function for Selection Sort 
+
+void selectionSort(foat arr[], int n) { 
+
+int minIndex; 
+
+for (int i = 0; i < n - 1; i++) { 
+
+minIndex = i; 
+
+for (int j = i + 1; j < n; j++) { 
+
+if (arr[j] < arr[minIndex]) 
+
+minIndex = j; 
+
+} 
+
+// swap 
+
+foat temp = arr[i]; 
+
+arr[i] = arr[minIndex]; 
+
+arr[minIndex] = temp;} 
+
+} 
+
+// Function to display top 5 scores 
+
+void displayTopFive(foat arr[], int n) { 
+
+cout << "\nTop Five Scores:\n"; 
+
+if (n < 5) 
+
+cout << "Less than 5 students.\n"; 
+
+else { 
+
+for (int i = n - 1; i >= n - 5; i--) 
+
+cout << arr[i] << "%\n"; 
+
+} 
+
+} 
+
+int main() { 
+
+int n; 
+
+cout << "Enter number of students: "; 
+
+cin >> n; 
+
+foat marks[n]; 
+
+cout << "Enter percentage of students:\n"; 
+
+for (int i = 0; i < n; i++) 
+
+cin >> marks[i]; 
+
+// Sort array using Selection Sort 
+
+selectionSort(marks, n); 
+
+cout << "\nPercentages in Ascending Order:\n"; 
+
+for (int i = 0; i < n; i++) 
+
+cout << marks[i] << "% "; 
+
+displayTopFive(marks, n); 
+
+return 0; 
+
+}
