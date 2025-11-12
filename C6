@@ -1,0 +1,50 @@
+include <iostream>
+#include <stack>   // Stack library in C++
+using namespace std;
+
+// Function to check if the brackets are balanced
+bool isBalanced(string exp) {
+    stack<char> s;  // Create a stack to store brackets
+
+    // Traverse the expression character by character
+    for (char ch : exp) {
+        // 1ï¸âƒ£ If opening bracket, push into stack
+        if (ch == '(' || ch == '{' || ch == '[') {
+            s.push(ch);
+        }
+
+        // 2ï¸âƒ£ If closing bracket, check stack top
+        else if (ch == ')' || ch == '}' || ch == ']') {
+            // If stack empty, means no opening bracket available
+            if (s.empty()) {
+                return false;
+            }
+
+            char top = s.top();  // Look at top bracket
+            s.pop();             // Remove it for checking
+
+            // Check if top matches with the closing bracket
+            if ((ch == ')' && top != '(') ||
+                (ch == '}' && top != '{') ||
+                (ch == ']' && top != '[')) {
+                return false;  // Mismatch found
+            }
+        }
+    }
+
+    // 3ï¸âƒ£ At the end, stack must be empty (all matched)
+    return s.empty();
+}
+
+int main() {
+    string expression;
+    cout << "Enter an expression: ";
+    cin >> expression;
+
+    if (isBalanced(expression))
+        cout << "Expression is well parenthesized (balanced)." << endl;
+    else
+        cout << "Expression is NOT balanced!" << endl;
+
+    return 0;
+}
