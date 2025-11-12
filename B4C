@@ -1,177 +1,121 @@
-#include 
 
-using namespace std; 
-
-struct Node { 
-
-string name; 
-
-long long prn; 
-
-Node* next; 
-
-}; 
-
-class Club { 
-
-Node* head = nullptr; 
-
-Node* tail = nullptr; 
-
-public: 
-
-// Add a new member (President, Member, Secretary) 
-
-void addMember(string role) { 
-
-Node* temp = new Node; 
-
-cout << "Enter " << role << " PRN and Name: "; 
-
-cin >> temp->prn >> temp->name; 
-
-temp->next = nullptr; 
-
-if (!head) head = tail = temp; // First node 
-
-else { 
-
-tail->next = temp;tail = temp; 
-
-} 
-
-} 
-
-// Display all members 
-
-void display() { 
-
-if (!head) { cout << "No members in this club!\n"; return; } 
-
-Node* ptr = head; 
-
-int i = 1; 
-
-cout << "\n--- Pinnacle Club Members ---\n"; 
-
-while (ptr) { 
-
-cout << i++ << ". " << ptr->name << " [PRN: " << ptr->prn << "]"; 
-
-if (ptr == head) cout << " (President)"; 
-
-else if (ptr == tail) cout << " (Secretary)"; 
-
-cout << endl; 
-
-ptr = ptr->next; 
-
-} 
-
-} 
-
-// Count members 
-
-int countMembers() { 
-
-int count = 0; 
-
-for (Node* ptr = head; ptr; ptr = ptr->next) 
-
-count++; 
-
-return count; 
-
-} 
-
-// Concatenate another club list 
-
-void concatenate(Club& other) { 
-
-if (!head) { head = other.head; tail = other.tail; } 
-
-else if (other.head) { 
-
-tail->next = other.head; 
-
-tail = other.tail; 
-
-} 
-
-cout << "\nfor (int i = 0; i < nB; i++) { 
-
-if (i == 0) divB.addMember("President"); 
-
-else if (i == nB - 1) divB.addMember("Secretary"); 
-
-else divB.addMember("Member"); 
-
-} 
-
-do { 
-
-cout << "\n===== Pinnacle Club Menu =====\n"; 
-
-cout << "1. Display Division A\n2. Display Division B\n"; 
-
-cout << "3. Count Members\n4. Concatenate Divisions\n5. Display Combined List\n0. Exit\n"; 
-
-cout << "Enter your choice: "; 
-
-cin >> choice; 
-
-switch (choice) { 
-
-case 1: 
-
-divA.display(); 
-
-break; 
-
-case 2: 
-
-divB.display(); 
-
-break; 
-
-case 3: 
-
-cout << "Division A Members: " << divA.countMembers() << endl; 
-
-cout << "Division B Members: " << divB.countMembers() << endl; 
-
-cout << "Total Members (A + B): " 
-
-<< divA.countMembers() + divB.countMembers() << endl; 
-
-break; 
-
-case 4: 
-
-divA.concatenate(divB); 
-
-break; 
-
-case 5: 
-
-divA.display(); 
-
-break; 
-
-case 0: 
-
-cout << "Exiting...\n"; 
-
-break; 
-
-default: 
-
-cout << "Invalid choice!\n"; 
-
-} 
-
-} while (choice != 0); 
-
-return 0; 
-
+#include <iostream>
+using namespace std;
+
+struct Node {
+    string name;
+    long long prn;
+    Node* next;
+};
+
+class Club {
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+public:
+    // Add a new member (President, Member, Secretary)
+    void addMember(string role) {
+        Node* temp = new Node;
+        cout << "Enter " << role << " PRN and Name: ";
+        cin >> temp->prn >> temp->name;
+        temp->next = nullptr;
+
+        if (!head) head = tail = temp;     // First node
+        else {
+            tail->next = temp;
+            tail = temp;
+        }
+    }
+
+    // Display all members
+    void display() {
+        if (!head) { cout << "No members in this club!\n"; return; }
+        Node* ptr = head;
+        int i = 1;
+        cout << "\n--- Pinnacle Club Members ---\n";
+        while (ptr) {
+            cout << i++ << ". " << ptr->name << " [PRN: " << ptr->prn << "]";
+            if (ptr == head) cout << " (President)";
+            else if (ptr == tail) cout << " (Secretary)";
+            cout << endl;
+            ptr = ptr->next;
+        }
+    }
+
+    // Count members
+    int countMembers() {
+        int count = 0;
+        for (Node* ptr = head; ptr; ptr = ptr->next)
+            count++;
+        return count;
+    }
+
+    // Concatenate another club list
+    void concatenate(Club& other) {
+        if (!head) { head = other.head; tail = other.tail; }
+        else if (other.head) {
+            tail->next = other.head;
+            tail = other.tail;
+        }
+        cout << "\n✅ Lists concatenated successfully!\n";
+    }
+};
+
+int main() {
+    Club divA, divB;
+    int nA, nB, choice;
+
+    cout << "\n=== Create Pinnacle Club for Division A ===\n";
+    cout << "How many total members in Division A (including President & Secretary)? ";
+    cin >> nA;
+    for (int i = 0; i < nA; i++) {
+        if (i == 0) divA.addMember("President");
+        else if (i == nA - 1) divA.addMember("Secretary");
+        else divA.addMember("Member");
+    }
+
+    cout << "\n=== Create Pinnacle Club for Division B ===\n";
+    cout << "How many total members in Division B (including President & Secretary)? ";
+    cin >> nB;
+    for (int i = 0; i < nB; i++) {
+        if (i == 0) divB.addMember("President");
+        else if (i == nB - 1) divB.addMember("Secretary");
+        else divB.addMember("Member");
+    }
+
+    do {
+        cout << "\n===== Pinnacle Club Menu =====\n";
+        cout << "1. Display Division A\n2. Display Division B\n";
+        cout << "3. Count Members\n4. Concatenate Divisions\n5. Display Combined List\n0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                divA.display();
+                break;
+            case 2:
+                divB.display();
+                break;
+            case 3:
+                cout << "Division A Members: " << divA.countMembers() << endl;
+                cout << "Division B Members: " << divB.countMembers() << endl;
+                cout << "Total Members (A + B): "
+                     << divA.countMembers() + divB.countMembers() << endl;
+                break;
+            case 4:
+                divA.concatenate(divB);
+                break;
+            case 5:
+                divA.display();
+                break;
+            case 0:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+    } while (choice != 0);
+
+    return 0;
 }
