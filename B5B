@@ -1,201 +1,128 @@
-#include // For random number generation 
-
-using namespace std; 
-
-// Node structure for doubly linked list 
-
-struct Node { 
-
-int seatNo; 
-
-bool booked; // true = booked, false = free 
-
-Node* prev; 
-
-Node* next; 
-
-}; 
-
-// Function to create a doubly linked list for one row 
-
-Node* createRow(int totalSeats) { 
-
-Node* head = nullptr; 
-
-Node* tail = nullptr; 
-
-for (int i = 1; i <= totalSeats; i++) { 
-
-Node* newNode = new Node; 
-
-newNode->seatNo = i; 
-
-newNode->booked = (rand() % 2 == 0); // randomly booked 
-
-newNode->prev = tail; 
-
-newNode->next = nullptr; 
-
-if (head == nullptr) 
-
-head = newNode; 
-
-else 
-
-tail->next = newNode; 
-
-tail = newNode; 
-
-} 
-
-return head; 
-
-} 
-
-// Function to display all booked seats 
-
-void displayBookedSeats(Node* head, int rowNum) { 
-
-Node* temp = head; 
-
-cout << "Row " << rowNum + 1 << " booked seats: ";bool found = false; 
-
-while (temp != nullptr) { 
-
-if (temp->booked) { 
-
-cout << temp->seatNo << " "; 
-
-found = true; 
-
-} 
-
-temp = temp->next; 
-
-} 
-
-if (!found) 
-
-cout << "No seats booked."; 
-
-cout << endl; 
-
-} 
-
-// Function to cancel a booking 
-
-void cancelBooking(Node* head, int seatNum) { 
-
-Node* temp = head; 
-
-while (temp != nullptr) { 
-
-if (temp->seatNo == seatNum) { 
-
-if (temp->booked) { 
-
-temp->booked = false; 
-
-cout << "Seat " << seatNum << " has been cancelled successfully.\n"; 
-
-} else { 
-
-cout << "Seat " << seatNum << " is already free.\n"; 
-
-} 
-
-return; 
-
-} 
-
-temp = temp->next; 
-
-} 
-
-cout << "Invalid seat number.\n"; 
-
-} 
-
-int main() { 
-
-const int rows = 10; 
-
-const int seatsPerRow = 7; 
-
-Node* theater[rows]; // Array of head pointers 
-
-// Create all rows 
-
-for (int i = 0; i < rows; i++) { 
-
-theater[i] = createRow(seatsPerRow); 
-
-} 
-
-int choice; 
-
-do { 
-
-cout << "\n----- Cinemax Booking System -----\n"; 
-
-cout << "1. Display booked seats\n"; 
-
-cout << "2. Cancel a booking\n"; 
-
-cout << "3. Exit\n"; 
-
-cout << "Enter your choice: "; 
-
-cin >> choice;switch (choice) { 
-
-case 1: 
-
-for (int i = 0; i < rows; i++) { 
-
-displayBookedSeats(theater[i], i); 
-
-} 
-
-break; 
-
-case 2: { 
-
-int rowNum, seatNum; 
-
-cout << "Enter row number (1-10): "; 
-
-cin >> rowNum; 
-
-cout << "Enter seat number (1-7): "; 
-
-cin >> seatNum; 
-
-if (rowNum >= 1 && rowNum <= 10) 
-
-cancelBooking(theater[rowNum - 1], seatNum); 
-
-else 
-
-cout << "Invalid row number.\n"; 
-
-break; 
-
-} 
-
-case 3: 
-
-cout << "Exiting system.\n"; 
-
-break; 
-
-default: 
-
-cout << "Invalid choice.\n"; 
-
-} 
-
-} while (choice != 3); 
-
-return 0; 
-
+#include <iostream>
+#include <cstdlib>   // For random number generation
+using namespace std;
+
+// Node structure for doubly linked list
+struct Node {
+    int seatNo;
+    bool booked;     // true = booked, false = free
+    Node* prev;
+    Node* next;
+};
+
+// Function to create a doubly linked list for one row
+Node* createRow(int totalSeats) {
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+    for (int i = 1; i <= totalSeats; i++) {
+        Node* newNode = new Node;
+        newNode->seatNo = i;
+        newNode->booked = (rand() % 2 == 0); // randomly booked
+        newNode->prev = tail;
+        newNode->next = nullptr;
+
+        if (head == nullptr)
+            head = newNode;
+        else
+            tail->next = newNode;
+
+        tail = newNode;
+    }
+
+    return head;
 }
+
+// Function to display all booked seats
+void displayBookedSeats(Node* head, int rowNum) {
+    Node* temp = head;
+    cout << "Row " << rowNum + 1 << " booked seats: ";
+    bool found = false;
+
+    while (temp != nullptr) {
+        if (temp->booked) {
+            cout << temp->seatNo << " ";
+            found = true;
+        }
+        temp = temp->next;
+    }
+
+    if (!found)
+        cout << "No seats booked.";
+    cout << endl;
+}
+
+// Function to cancel a booking
+void cancelBooking(Node* head, int seatNum) {
+    Node* temp = head;
+
+    while (temp != nullptr) {
+        if (temp->seatNo == seatNum) {
+            if (temp->booked) {
+                temp->booked = false;
+                cout << "Seat " << seatNum << " has been cancelled successfully.\n";
+            } else {
+                cout << "Seat " << seatNum << " is already free.\n";
+            }
+            return;
+        }
+        temp = temp->next;
+    }
+
+    cout << "Invalid seat number.\n";
+}
+
+int main() {
+    const int rows = 10;
+    const int seatsPerRow = 7;
+    Node* theater[rows]; // Array of head pointers
+
+    // Create all rows
+    for (int i = 0; i < rows; i++) {
+        theater[i] = createRow(seatsPerRow);
+    }
+
+    int choice;
+    do {
+        cout << "\n----- Cinemax Booking System -----\n";
+        cout << "1. Display booked seats\n";
+        cout << "2. Cancel a booking\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            for (int i = 0; i < rows; i++) {
+                displayBookedSeats(theater[i], i);
+            }
+            break;
+
+        case 2: {
+            int rowNum, seatNum;
+            cout << "Enter row number (1-10): ";
+            cin >> rowNum;
+            cout << "Enter seat number (1-7): ";
+            cin >> seatNum;
+
+            if (rowNum >= 1 && rowNum <= 10)
+                cancelBooking(theater[rowNum - 1], seatNum);
+            else
+                cout << "Invalid row number.\n";
+            break;
+        }
+
+        case 3:
+            cout << "Exiting system.\n";
+            break;
+
+        default:
+            cout << "Invalid choice.\n";
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
+
+
