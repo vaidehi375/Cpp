@@ -1,164 +1,109 @@
-#include 
+#include <iostream>
+using namespace std;
+
+#define SIZE 10  // size of hash table
+
+class HashTable {
+    int keys[SIZE];      // array for storing keys (telephone numbers or IDs)
+    string names[SIZE];  // array for storing client names
+
+public:
+    HashTable() {
+        for (int i = 0; i < SIZE; i++) {
+            keys[i] = -1;  // -1 means empty
+            names[i] = "";
+        }
+    }
+
+    // Hash function
+    int hashFunction(int key) {
+        return key % SIZE;  // gives index based on key
+    }
+
+    // Insert client info
+    void insert(int key, string name) {
+        int index = hashFunction(key);
+
+        // Linear probing for collision
+        while (keys[index] != -1) {
+            index = (index + 1) % SIZE;  // move to next slot
+        }
+
+        keys[index] = key;
+        names[index] = name;
+    }
+
+    // Search client info
+    void search(int key) {
+        int index = hashFunction(key);
+        int startIndex = index;
+
+        while (keys[index] != -1) {
+            if (keys[index] == key) {
+                cout << "Client found: " << names[index] << " (Phone No: " << key << ")\n";
+                return;
+            }
+            index = (index + 1) % SIZE;
+            if (index == startIndex) break;  // if we come back to start, stop
+        }
+
+        cout << "Client not found!\n";
+    }
+
+    // Display all data
+    void display() {
+        cout << "\nHash Table:\n";
+        for (int i = 0; i < SIZE; i++) {
+            if (keys[i] != -1)
+                cout << i << " --> " << names[i] << " (" << keys[i] << ")\n";
+            else
+                cout << i << " --> [empty]\n";
+        }
+    }
+};
+
+int main() {
+    HashTable ht;
+    int choice, key;
+    string name;
+
+    do {
+        cout << "\n--- Telephone Book Menu ---\n";
+        cout << "1. Insert client\n2. Search client\n3. Display hash table\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter client name: ";
+                cin >> name;
+                cout << "Enter telephone number: ";
+                cin >> key;
+                ht.insert(key, name);
+                break;
+
+            case 2:
+                cout << "Enter telephone number to search: ";
+                cin >> key;
+                ht.search(key);
+                break;
+
+            case 3:
+                ht.display();
+                break;
+
+            case 4:
+                cout << "Exiting...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+    } while (choice != 4);
 
-using namespace std; 
+    return 0;
+}
 
-#defne SIZE 10 // size of hash table 
-
-class HashTable { 
-
-int keys[SIZE]; // array for storing keys (telephone numbers or IDs) 
-
-string names[SIZE]; // array for storing client names 
-
-public: 
-
-HashTable() { 
-
-for (int i = 0; i < SIZE; i++) { 
-
-keys[i] = -1; // -1 means empty 
-
-names[i] = "";} 
-
-} 
-
-// Hash function 
-
-int hashFunction(int key) { 
-
-return key % SIZE; // gives index based on key 
-
-} 
-
-// Insert client info 
-
-void insert(int key, string name) { 
-
-int index = hashFunction(key); 
-
-// Linear probing for collision 
-
-while (keys[index] != -1) { 
-
-index = (index + 1) % SIZE; // move to next slot 
-
-} 
-
-keys[index] = key; 
-
-names[index] = name; 
-
-} 
-
-// Search client info 
-
-void search(int key) { 
-
-int index = hashFunction(key); 
-
-int startIndex = index; 
-
-while (keys[index] != -1) { 
-
-if (keys[index] == key) { 
-
-cout << "Client found: " << names[index] << " (Phone No: " << key << ")\n"; 
-
-return; 
-
-} 
-
-index = (index + 1) % SIZE; 
-
-if (index == startIndex) break; // if we come back to start, stop 
-
-} 
-
-cout << "Client not found!\n"; 
-
-} 
-
-// Display all data 
-
-void display() { 
-
-cout << "\nHash Table:\n"; 
-
-for (int i = 0; i < SIZE; i++) { 
-
-if (keys[i] != -1) 
-
-cout << i << " --> " << names[i] << " (" << keys[i] << ")\n"; 
-
-else 
-
-cout << i << " --> [empty]\n"; 
-
-} 
-
-} 
-
-}; 
-
-int main() { 
-
-HashTable ht; 
-
-int choice, key; 
-
-string name;do { 
-
-cout << "\n--- Telephone Book Menu ---\n"; 
-
-cout << "1. Insert client\n2. Search client\n3. Display hash table\n4. Exit\n"; 
-
-cout << "Enter your choice: "; 
-
-cin >> choice; 
-
-switch (choice) { 
-
-case 1: 
-
-cout << "Enter client name: "; 
-
-cin >> name; 
-
-cout << "Enter telephone number: "; 
-
-cin >> key; 
-
-ht.insert(key, name); 
-
-break; 
-
-case 2: 
-
-cout << "Enter telephone number to search: "; 
-
-cin >> key; 
-
-ht.search(key); 
-
-break; 
-
-case 3: 
-
-ht.display(); 
-
-break; 
-
-case 4: 
-
-cout << "Exiting...\n"; 
-
-break; 
-
-default: 
-
-cout << "Invalid choice!\n"; 
-
-} 
 
 } while (choice != 4); 
 
