@@ -1,83 +1,52 @@
-#include 
 
-using namespace std; 
+#include <iostream>
+using namespace std;
 
-// Function for Selection Sort 
+// Function for Selection Sort
+void selectionSort(float arr[], int n) {
+    int minIndex;
+    for (int i = 0; i < n - 1; i++) {
+        minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex])
+                minIndex = j;
+        }
+        // swap
+        float temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
 
-void selectionSort(foat arr[], int n) { 
+// Function to display top 5 scores
+void displayTopFive(float arr[], int n) {
+    cout << "\nTop Five Scores:\n";
+    if (n < 5)
+        cout << "Less than 5 students.\n";
+    else {
+        for (int i = n - 1; i >= n - 5; i--)
+            cout << arr[i] << "%\n";
+    }
+}
 
-int minIndex; 
+int main() {
+    int n;
+    cout << "Enter number of students: ";
+    cin >> n;
 
-for (int i = 0; i < n - 1; i++) { 
+    float marks[n];
+    cout << "Enter percentage of students:\n";
+    for (int i = 0; i < n; i++)
+        cin >> marks[i];
 
-minIndex = i; 
+    // Sort array using Selection Sort
+    selectionSort(marks, n);
 
-for (int j = i + 1; j < n; j++) { 
+    cout << "\nPercentages in Ascending Order:\n";
+    for (int i = 0; i < n; i++)
+        cout << marks[i] << "%  ";
 
-if (arr[j] < arr[minIndex]) 
+    displayTopFive(marks, n);
 
-minIndex = j; 
-
-} 
-
-// swap 
-
-foat temp = arr[i]; 
-
-arr[i] = arr[minIndex]; 
-
-arr[minIndex] = temp;} 
-
-} 
-
-// Function to display top 5 scores 
-
-void displayTopFive(foat arr[], int n) { 
-
-cout << "\nTop Five Scores:\n"; 
-
-if (n < 5) 
-
-cout << "Less than 5 students.\n"; 
-
-else { 
-
-for (int i = n - 1; i >= n - 5; i--) 
-
-cout << arr[i] << "%\n"; 
-
-} 
-
-} 
-
-int main() { 
-
-int n; 
-
-cout << "Enter number of students: "; 
-
-cin >> n; 
-
-foat marks[n]; 
-
-cout << "Enter percentage of students:\n"; 
-
-for (int i = 0; i < n; i++) 
-
-cin >> marks[i]; 
-
-// Sort array using Selection Sort 
-
-selectionSort(marks, n); 
-
-cout << "\nPercentages in Ascending Order:\n"; 
-
-for (int i = 0; i < n; i++) 
-
-cout << marks[i] << "% "; 
-
-displayTopFive(marks, n); 
-
-return 0; 
-
+    return 0;
 }
