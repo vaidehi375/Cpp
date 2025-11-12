@@ -1,4 +1,4 @@
-include <iostream>
+#include <iostream>
 #include <stack>   // Stack library in C++
 using namespace std;
 
@@ -8,12 +8,12 @@ bool isBalanced(string exp) {
 
     // Traverse the expression character by character
     for (char ch : exp) {
-        // 1ï¸âƒ£ If opening bracket, push into stack
+        // 1️⃣ If opening bracket, push into stack
         if (ch == '(' || ch == '{' || ch == '[') {
             s.push(ch);
         }
 
-        // 2ï¸âƒ£ If closing bracket, check stack top
+        // 2️⃣ If closing bracket, check stack top
         else if (ch == ')' || ch == '}' || ch == ']') {
             // If stack empty, means no opening bracket available
             if (s.empty()) {
@@ -32,7 +32,7 @@ bool isBalanced(string exp) {
         }
     }
 
-    // 3ï¸âƒ£ At the end, stack must be empty (all matched)
+    // 3️⃣ At the end, stack must be empty (all matched)
     return s.empty();
 }
 
@@ -48,3 +48,5 @@ int main() {
 
     return 0;
 }
+
+
