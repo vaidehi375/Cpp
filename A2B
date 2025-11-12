@@ -1,0 +1,77 @@
+#include 
+
+using namespace std; 
+
+// Function for Bubble Sort 
+
+void bubbleSort(foat arr[], int n) { 
+
+for (int i = 0; i < n - 1; i++) { // outer loop for passes 
+
+for (int j = 0; j < n - i - 1; j++) { // inner loop for comparing 
+
+if (arr[j] > arr[j + 1]) { // if current > next, swap 
+
+foat temp = arr[j]; 
+
+arr[j] = arr[j + 1]; 
+
+arr[j + 1] = temp; 
+
+} 
+
+} 
+
+}} 
+
+// Function to display top 5 scores 
+
+void displayTopFive(foat arr[], int n) { 
+
+cout << "\nTop Five Scores:\n"; 
+
+if (n < 5) 
+
+cout << "Less than 5 students.\n"; 
+
+else { 
+
+for (int i = n - 1; i >= n - 5; i--) 
+
+cout << arr[i] << "%\n"; 
+
+} 
+
+} 
+
+int main() { 
+
+int n; 
+
+cout << "Enter number of students: "; 
+
+cin >> n; 
+
+foat marks[n]; 
+
+cout << "Enter percentage of students:\n"; 
+
+for (int i = 0; i < n; i++) 
+
+cin >> marks[i]; 
+
+// Sort using Bubble Sort 
+
+bubbleSort(marks, n); 
+
+cout << "\nPercentages in Ascending Order:\n"; 
+
+for (int i = 0; i < n; i++) 
+
+cout << marks[i] << "% "; 
+
+displayTopFive(marks, n); 
+
+return 0; 
+
+}
