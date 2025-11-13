@@ -50,3 +50,54 @@ int main() {
 }
 
 
+
+
+
+
+🧩 Algorithm for C-6: Check Balanced Parentheses
+Aim:
+
+To check whether a given expression has balanced delimiters such as
+( ), { }, and [ ] using a stack data structure.
+
+1️⃣ Start
+2️⃣ Initialize Stack:
+
+Create an empty stack S to store opening brackets.
+
+3️⃣ Input Expression:
+
+Read the expression exp (string of characters).
+
+4️⃣ Scan Expression from Left to Right:
+
+For each character ch in exp:
+
+Step 4.1:
+
+If ch is an opening bracket ('(', '{', '['):
+→ Push ch onto the stack.
+
+Step 4.2:
+
+If ch is a closing bracket (')', '}', ']'):
+
+If stack is empty, expression is not balanced → Stop.
+
+Else:
+
+Pop the top element from stack (say top).
+
+Check if top and ch are of the same type:
+
+( and ), { and }, [ and ]
+
+If not matching → expression not balanced → Stop.
+
+5️⃣ After Scanning Entire Expression:
+
+If stack is empty, then expression is well parenthesized (balanced).
+
+If stack not empty, then expression is not balanced (some brackets left unmatched).
+
+6️⃣ Stop
