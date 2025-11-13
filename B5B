@@ -126,3 +126,87 @@ int main() {
 }
 
 
+
+
+
+
+🎟️ Algorithm for B-5b
+Aim:
+
+To implement the Cinemax theater booking system using Doubly Linked List,
+where we can:
+
+Display booked seats, and
+
+Cancel a booking
+
+1️⃣ Start
+2️⃣ Define Node Structure:
+
+Each seat in a row is represented by a node having:
+
+seat_no → integer (1 to 7)
+
+status → integer (0 = free, 1 = booked)
+
+prev → pointer to previous seat node
+
+next → pointer to next seat node
+
+3️⃣ Create Theater Layout:
+
+Function: createTheater()
+
+For each row i from 1 to 10:
+
+Set head[i] = NULL
+
+For each seat j from 1 to 7:
+
+Create a new node with seat_no = j
+
+Randomly assign status as booked (1) or free (0)
+
+Link nodes using prev and next
+
+Store head pointer in array head[i]
+
+4️⃣ Display Booked Seats:
+
+Function: displayBooked()
+
+For each row i from 1 to 10:
+
+Print “Row i: ”
+
+Set temp = head[i]
+
+While temp != NULL:
+
+If temp->status == 1
+
+Print seat number (temp->seat_no)
+
+Move temp = temp->next
+
+Go to next row
+
+5️⃣ Cancel Booking:
+
+Function: cancelBooking(row, seat_no)
+
+Access head pointer of that row → head[row]
+
+Traverse list to find node with seat number = seat_no
+
+If status == 0:
+
+Print “Seat not booked.”
+
+Else:
+
+Set status = 0
+
+Print “Booking cancelled successfully.”
+
+6️⃣ Stop
