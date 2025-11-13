@@ -73,3 +73,46 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+Theory: 
+A Graph is a non-linear data structure consisting of a set of vertices (nodes) and edges (connections) between them. Graphs are widely used in computer science to represent 
+networks such as social networks, road maps, computer networks, and airline 
+routes.
+In this experiment, we represent cities (airports) as vertices and flight paths between them
+
+
+ as edges. The weight of an edge can represent different factors such as the time of travel, distance, or fuel cost.
+
+Types of Graphs:
+1.	Directed Graph (Digraph):
+o	In a directed graph, edges have a direction.
+o	Example: A flight may exist from City A → City B, but not necessarily from City B → City A.
+2.	Undirected Graph:
+o	Edges do not have direction.
+o	Example: A two-way road between cities.
+3.	Weighted Graph:
+o	Each edge carries a weight.
+o	Example: The weight could be the time required or fuel used by the flight.
+4.	Unweighted Graph:
+o	Edges have no weight.
+o	Example: Simply representing whether a path exists or not.
+
+
+
+Algorithm: 
+Step 1: Represent Graph
+•	Input the number of cities (vertices) and flight paths (edges).
+•	Create adjacency list or adjacency matrix.
+•	Store weights (time/fuel).
+Step 2: DFS for Connectivity Check
+1.	Initialize all vertices as unvisited.
+2.	Perform DFS starting from a vertex.
+3.	Mark all reachable vertices as visited.
+4.	After DFS, check if all vertices are visited.
+o	If yes → Graph is connected.
+o	If no → Graph is disconnected.
