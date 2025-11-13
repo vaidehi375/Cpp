@@ -102,3 +102,82 @@ int main() {
 
 
 
+
+
+
+🧩 Algorithm for C-7: Job Queue Simulation
+Aim:
+
+To simulate a Job Queue where jobs are processed in First In First Out (FIFO) order.
+Functions should allow:
+
+Adding a new job (enqueue)
+
+Deleting a job (dequeue)
+
+1️⃣ Start
+2️⃣ Define Structure:
+
+Create a structure or array-based queue with:
+
+queue[] → array to store job IDs or job names
+
+front → index of first job
+
+rear → index of last job
+
+maxsize → total size of queue (e.g., 10)
+
+3️⃣ Initialize Queue:
+
+Set
+
+front = -1  
+rear = -1
+
+4️⃣ Function: Add Job (Enqueue)
+
+Function: addJob(job)
+
+If (rear == maxsize - 1)
+→ Print “Queue is Full (Overflow)”
+
+Else
+
+If front == -1, set front = 0
+
+Increment rear = rear + 1
+
+Insert job into queue[rear]
+
+Print “Job added successfully”
+
+5️⃣ Function: Delete Job (Dequeue)
+
+Function: deleteJob()
+
+If (front == -1 || front > rear)
+→ Print “Queue is Empty (Underflow)”
+
+Else
+
+Print “Deleted Job: queue[front]”
+
+Increment front = front + 1
+
+If front > rear, reset both front = rear = -1 (queue empty)
+
+6️⃣ Function: Display Jobs (Optional)
+
+Function: displayQueue()
+
+If queue is empty → Print “No jobs in queue.”
+
+Else
+
+Traverse from front to rear
+
+Display all job names in order
+
+7️⃣ Stop
+
