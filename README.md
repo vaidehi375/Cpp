@@ -1,137 +1,119 @@
-# Cpp
-#include 
 
-using namespace std; 
+#include <iostream>
+using namespace std;
+
+// Function for Linear Search
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key)
+            return i; // found
+    }
+    return -1; // not found
+}
 
-// Function for Linear Search 
+// Function for Binary Search
+int binarySearch(int arr[], int n, int key) {
+    int low = 0, high = n - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] == key)
+            return mid; // found
+        else if (arr[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1; // not found
+}
 
-int linearSearch(int arr[], int n, int key) { 
+int main() {
+    int choice;
+    int n, key, result;
 
-for (int i = 0; i < n; i++) { 
+    cout << "\nEnter number of students: ";
+    cin >> n;
 
-if (arr[i] == key) 
+    int roll[n];
+    cout << "Enter roll numbers of students:\n";
+    for (int i = 0; i < n; i++)
+        cin >> roll[i];
 
-return i; // found 
+    do {
+        cout << "\n====== MENU ======\n";
+        cout << "1. Linear Search (Random Order)\n";
+        cout << "2. Binary Search (Sorted Order)\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-} 
+        switch (choice) {
+        case 1:
+            cout << "Enter roll number to search: ";
+            cin >> key;
+            result = linearSearch(roll, n, key);
+            if (result != -1)
+                cout << "Student with roll number " << key << " attended the program.\n";
+            else
+                cout << "Student with roll number " << key << " did NOT attend the program.\n";
+            break;
 
-return -1; // not found 
+        case 2:
+            cout << "Note: Enter roll numbers in sorted order for Binary Search.\n";
+            cout << "Enter roll number to search: ";
+            cin >> key;
+            result = binarySearch(roll, n, key);
+            if (result != -1)
+                cout << "Student with roll number " << key << " attended the program.\n";
+            else
+                cout << "Student with roll number " << key << " did NOT attend the program.\n";
+            break;
 
-} 
+        case 3:
+            cout << "Exiting program...\n";
+            break;
 
-// Function for Binary Search 
+        default:
+            cout << "Invalid choice! Please try again.\n";
+        }
+    } while (choice != 3);
 
-int binarySearch(int arr[], int n, int key) { 
+    return 0;
+}
 
-int low = 0, high = n - 1; 
 
-while (low <= high) { 
 
-int mid = (low + high) / 2; 
 
-if (arr[mid] == key) 
+Binary Search
+Definition:
+ Binary search is an efficient search algorithm that works only on sorted arrays. It repeatedly divides the search interval in half, comparing the target value to the middle element
 
-return mid; // found 
 
-else if (arr[mid] < key) 
 
-low = mid + 1; 
 
-else 
+Algorithm:
+a) Linear Search:
+1.	Start from the first element of the array.
 
-high = mid - 1; 
+2.	Compare each element with the key.
 
-} 
+3.	If found, return true.
 
-return -1; // not found 
+4.	If not found after checking all elements, return false.
 
-} 
+b) Binary Search:
+1.	Set low = 0 and high = n-1.
 
-int main() { 
+2.	While low <= high:
 
-int choice; 
+○	Find mid = (low + high)/2.
 
-int n, key, result; 
+○	If arr[mid] == key, return true.
 
-cout << "\nEnter number of students: "; 
+○	If arr[mid] > key, set high = mid - 1.
 
-cin >> n; 
+○	If arr[mid] < key, set low = mid + 1.
 
-int roll[n]; 
+3.	If not found, return false.
 
-cout << "Enter roll numbers of students:\n"; 
 
-for (int i = 0; i < n; i++) 
-
-cin >> roll[i]; 
-
-do { 
-
-cout << "\n====== MENU ======\n"; 
-
-cout << "1. Linear Search (Random Order)\n"; 
-
-cout << "2. Binary Search (Sorted Order)\n"; 
-
-cout << "3. Exit\n"; 
-
-cout << "Enter your choice: "; 
-
-cin >> choice;switch (choice) { 
-
-case 1: 
-
-cout << "Enter roll number to search: "; 
-
-cin >> key; 
-
-result = linearSearch(roll, n, key); 
-
-if (result != -1) 
-
-cout << "Student with roll number " << key << " attended the program.\n"; 
-
-else 
-
-cout << "Student with roll number " << key << " did NOT attend the program.\n"; 
-
-break; 
-
-case 2: 
-
-cout << "Note: Enter roll numbers in sorted order for Binary Search.\n"; 
-
-cout << "Enter roll number to search: "; 
-
-cin >> key; 
-
-result = binarySearch(roll, n, key); 
-
-if (result != -1) 
-
-cout << "Student with roll number " << key << " attended the program.\n"; 
-
-else 
-
-cout << "Student with roll number " << key << " did NOT attend the program.\n"; 
-
-break; 
-
-case 3: 
-
-cout << "Exiting program...\n"; 
-
-break; 
-
-default: 
-
-cout << "Invalid choice! Please try again.\n"; 
-
-} 
-
-} while (choice != 3); 
-
-return 0; 
-
-} 
 
