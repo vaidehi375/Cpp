@@ -119,3 +119,114 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+🧩 Problem B-4c (Algorithm)
+Aim:
+
+To maintain the Pinnacle Club members using Singly Linked Lists (SLL) and perform the following operations:
+
+Compute total number of members
+
+Display all members
+
+Concatenate two club lists (for two divisions)
+
+Algorithm:
+1️⃣ Start
+2️⃣ Define Structure:
+
+Define a node with:
+
+PRN → student roll number
+
+Name → student name
+
+next → pointer to next node
+
+3️⃣ Create Two Linked Lists:
+
+head1 for Division 1
+
+head2 for Division 2
+Initially set both to NULL.
+
+4️⃣ Function to Create Club List:
+
+Function: createList()
+
+Input total number of members n.
+
+For each member:
+
+Create a new node.
+
+Input PRN and Name.
+
+If list is empty → make this node head.
+
+Else → attach node at the end.
+
+Return the head of the list.
+
+5️⃣ Function to Count Total Members:
+
+Function: countMembers(head)
+
+Initialize count = 0
+
+Set temp = head
+
+While temp != NULL:
+
+Increment count
+
+Move temp = temp->next
+
+Print total members = count
+
+6️⃣ Function to Display Members:
+
+Function: displayList(head)
+
+If head == NULL → print “No members.”
+
+Else:
+
+Set temp = head
+
+Traverse list:
+
+Display PRN and Name for each node.
+
+Identify:
+
+First node → “President”
+
+Last node → “Secretary”
+
+Others → “Members”
+
+Move temp = temp->next until NULL.
+
+7️⃣ Function to Concatenate Two Lists:
+
+Function: concatenate(head1, head2)
+
+If head1 == NULL → return head2
+
+If head2 == NULL → return head1
+
+Set temp = head1
+
+Traverse until temp->next == NULL
+
+Set temp->next = head2
+
+Return head1 as the combined list head.
+
+8️⃣ Stop
