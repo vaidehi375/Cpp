@@ -123,3 +123,68 @@ int main() {
     return 0;
 }
 
+
+
+
+
+
+
+Algorithm:
+1️⃣ Start
+2️⃣ Define Structure:
+
+Define a Node with:
+
+seat_no → seat number (1 to 7)
+
+booked → boolean flag (0 for free, 1 for booked)
+
+prev → pointer to previous seat
+
+next → pointer to next seat
+
+3️⃣ Create Theater Seat Layout:
+
+Function: createTheater()
+
+For each row i from 1 to 10:
+
+Initialize head[i] = NULL
+
+Create 7 nodes for seats 1–7.
+
+Link them doubly (prev and next).
+
+Randomly set some seats as booked = 1.
+
+4️⃣ Function to Display Available Seats:
+
+Function: displayAvailable()
+
+For each row i from 1 to 10:
+
+Print "Row i:"
+
+Traverse the list:
+
+If booked == 0 → print seat number.
+
+Move to next row.
+
+5️⃣ Function to Book Seat:
+
+Function: bookSeat(row, seat_no)
+
+Find the head[row].
+
+Traverse until the seat with seat_no is found.
+
+If seat already booked (booked == 1) → print “Seat already booked.”
+
+Else:
+
+Set booked = 1
+
+Print “Seat successfully booked!”
+
+6️⃣ Stop
