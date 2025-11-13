@@ -127,3 +127,76 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+Algorithm:
+
+Start
+
+Input the total number of clients N.
+
+Initialize a hash table of size SIZE (≥ N).
+
+Set all hash table entries as empty (e.g., key = -1, name = “ ”).
+
+Define Hash Function:
+
+Define the primary hash function:
+h1(key) = key % SIZE
+
+Insertion Operation:
+
+For each client:
+
+Input telephone number key and client name name.
+
+Compute the index:
+index = h1(key)
+
+If that index is empty:
+→ Store (key, name) at that position.
+
+Else (collision occurs):
+
+Initialize i = 1
+
+Repeat until an empty slot is found:
+new_index = (index + i*i) % SIZE
+
+If new_index is empty → store (key, name) there.
+
+Else → increase i by 1 and repeat.
+
+Search Operation:
+
+Input the telephone number key to search.
+
+Compute the primary index:
+index = h1(key)
+
+Initialize i = 0
+
+Repeat until an empty position is found or after SIZE attempts:
+
+new_index = (index + i*i) % SIZE
+
+If hashTable[new_index].key == key:
+→ Print “Client Found” and display name.
+→ Stop.
+
+Else
+→ Increment i and check next quadratic position.
+
+If the key is not found after checking all positions:
+→ Print “Client not found.”
+
+Display Operation (Optional):
+
+Traverse the hash table and print all non-empty entries with index, client name, and telephone number.
+
+Stop
