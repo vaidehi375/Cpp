@@ -187,3 +187,117 @@ int main() {
 
 
 
+
+
+
+🧩 Problem B-4b (Algorithm)
+Aim:
+
+To maintain the Pinnacle Club member’s information using a Singly Linked List (SLL) and perform:
+
+a) Deletion of the President and Secretary
+
+b) Counting total number of members
+
+c) Displaying all members
+
+Algorithm
+1️⃣ Start
+2️⃣ Define Structure:
+
+Define a node structure with:
+
+PRN → student roll number
+
+Name → student name
+
+next → pointer to next node
+
+3️⃣ Initialize Linked List:
+
+Set head = NULL (empty list).
+
+4️⃣ Function to Delete President:
+
+Function: deletePresident()
+
+If the list is empty (head == NULL):
+→ Print “List is empty, no president to delete.”
+
+Else:
+
+Create a temporary pointer temp = head
+
+Move head to next node → head = head->next
+
+Delete temp
+
+Print “President removed successfully.”
+
+5️⃣ Function to Delete Secretary:
+
+Function: deleteSecretary()
+
+If the list is empty (head == NULL):
+→ Print “List is empty, no secretary to delete.”
+
+Else if the list has only one node (only president):
+
+Delete that node
+
+Set head = NULL
+
+Print “Secretary removed (list now empty).”
+
+Else:
+
+Create two pointers:
+temp = head, prev = NULL
+
+Traverse until temp->next == NULL (reaches last node)
+
+The temp node is secretary, and prev is second last node
+
+Set prev->next = NULL
+
+Delete temp
+
+Print “Secretary removed successfully.”
+
+6️⃣ Function to Count Total Members:
+
+Function: countMembers()
+
+Initialize count = 0
+
+Set temp = head
+
+While temp != NULL:
+
+Increment count
+
+Move to next node → temp = temp->next
+
+Display total member count.
+
+7️⃣ Function to Display All Members:
+
+Function: displayList()
+
+If list is empty → Print “No members in the club.”
+
+Else:
+
+Set temp = head
+
+Traverse through the list:
+
+If node is first → print “President: PRN, Name”
+
+If node is last → print “Secretary: PRN, Name”
+
+Else → print “Member: PRN, Name”
+
+Move temp to next node until end of list.
+
+8️⃣ Stop
