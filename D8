@@ -156,5 +156,51 @@ int main() {
 
 
 
+Theory: 
+A Binary Search Tree (BST) is a specialized form of a binary tree that maintains order 
+among its elements. It provides an efficient way of storing data that allows for fast retrieval, insertion, and deletion.
 
 
+Properties of a BST:
+1.	Each node contains a key (data) and two subtrees (left and right).
+2.	The left child of a node contains only nodes with keys less than the parent’s key.
+3.	The right child of a node contains only nodes with keys greater than the parent’s key.
+4.	There are no duplicate nodes (in most implementations).
+5.	An in-order traversal of a BST results in the elements being displayed in sorted order.
+
+Advantages of BST:
+•	Searching, insertion, and deletion operations can be performed in O(h) time, where h is the height of the tree.
+•	Provides ordered data storage.
+•	Can be easily modified for advanced trees (AVL, Red-Black, Splay Trees).
+
+
+
+
+
+Algorithm: 
+1. Insert Node
+1.	If tree is empty, create new node as root.
+2.	If value < root → insert in left subtree.
+3.	If value > root → insert in right subtree.
+4.	Repeat recursively until inserted.
+
+2. Find Longest Path (Height of Tree)
+1.	If root is NULL → return 0.
+2.	Else, find height of left subtree and right subtree.
+3.	Return 1 + max(leftHeight, rightHeight).
+
+3. Find Minimum Value
+1.	Start from root.
+2.	Traverse left until left == NULL.
+3.	Return that node’s data.
+
+4. Mirror Tree
+1.	If root is NULL → return.
+2.	Swap root’s left and right pointers.
+3.	Recursively call for left and right subtrees.
+
+5. Search Value
+1.	If root is NULL → value not found.
+2.	If value == root’s data → found.
+If value < root → search in left subtree.
+3.	Else → search in right subtree.
