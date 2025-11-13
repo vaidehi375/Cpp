@@ -214,3 +214,123 @@ int main() {
     return 0;
 }
 
+
+
+
+
+Aim:
+
+To maintain the Pinnacle Club member’s information using a Singly Linked List (SLL) where:
+
+The first node represents the President,
+
+The last node represents the Secretary,
+
+Other nodes represent the Members.
+
+The program should allow:
+a) Adding members (including President or Secretary)
+b) Counting total members
+c) Displaying all members
+
+Algorithm:
+1️⃣ Start
+2️⃣ Define Structure:
+
+Define a node structure for storing:
+
+PRN (student roll number)
+
+Name (student name)
+
+Pointer next (link to next node)
+
+3️⃣ Initialize Linked List:
+
+Set head = NULL (empty list)
+
+4️⃣ Function to Add President:
+
+Function: addPresident()
+
+Create a new node.
+
+Input president’s PRN and Name.
+
+Set newNode->next = head
+
+Update head = newNode
+
+The president becomes the first node.
+
+5️⃣ Function to Add Secretary:
+
+Function: addSecretary()
+
+Create a new node.
+
+Input secretary’s PRN and Name.
+
+If the list is empty → head = newNode
+
+Else:
+
+Traverse to the last node.
+
+Set last->next = newNode
+
+The secretary becomes the last node.
+
+6️⃣ Function to Add Member (in between):
+
+Function: addMember()
+
+Create a new node.
+
+Input member’s PRN and Name.
+
+Traverse list up to the node before secretary (second last node).
+
+Insert the new node before the secretary:
+
+newNode->next = temp->next
+
+temp->next = newNode
+
+7️⃣ Function to Count Total Members:
+
+Function: countMembers()
+
+Initialize count = 0
+
+Set temp = head
+
+While temp != NULL:
+
+Increment count
+
+Move to next node temp = temp->next
+
+Display total count.
+
+8️⃣ Function to Display Members:
+
+Function: displayList()
+
+If list is empty → print “No members in club.”
+
+Else:
+
+Traverse from head to NULL
+
+Display PRN and Name for each node.
+
+Identify:
+
+First node → President
+
+Last node → Secretary
+
+Others → Members
+
+9️⃣ Stop
