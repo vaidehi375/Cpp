@@ -110,3 +110,81 @@ int main() {
 return 0; 
 
 }
+
+
+
+
+
+1 linear
+●	If collision occurs at index, check index+1, index+2, ..., until an empty slot is found.
+●	Formula: h(k, i) = (h(k) + i) % table_size
+2. Quadratic Probing:
+●	Probe sequence uses square increments to reduce clustering.
+●	Formula: h(k, i) = (h(k) + c1·i + c2·i²) % table_size
+ (Commonly, c1 = c2 = 1)
+3. Double Hashing:
+●	Uses two hash functions to compute the probe sequence
+●	Formula: h(k, i) = (h1(k) + i × h2(k)) % table_size
+
+●	Example:
+ h1(k) = k % table_size
+ h2(k) = R - (k % R) where R < table_size
+
+Use Case: Telephone Book
+Store (Key = Client Name or ID, Value = Phone Number)
+
+
+
+Start
+
+Input the total number of clients N.
+
+Initialize a hash table of size SIZE (preferably greater than or equal to N).
+
+Set all hash table positions as empty (e.g., key = -1 or name = " ").
+
+Insertion Operation:
+
+For each client:
+
+Input telephone number key and client name name.
+
+Compute hash index:
+index = key % SIZE
+
+If that position is empty:
+→ Store key and name at index.
+
+Else (collision occurs):
+→ Use Linear Probing:
+
+Increment index: index = (index + 1) % SIZE
+
+Repeat until an empty position is found.
+
+Insert the key and name there.
+
+Search Operation:
+
+Input the telephone number key to search.
+
+Compute hash index:
+index = key % SIZE
+
+Repeat while that position is not empty:
+
+If hashTable[index].key == key then
+→ Print “Client Found” and display name.
+→ Stop.
+
+Else
+→ Move to next index: index = (index + 1) % SIZE
+
+If an empty position is reached without finding the key:
+→ Print “Client not found.”
+
+Display Operation (Optional):
+
+Traverse the hash table and print all non-empty entries (index, name, telephone number).
+
+Stop
